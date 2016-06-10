@@ -33,5 +33,13 @@ PreCommit:
     on_warn: fail # Treat all warnings as failures
     required_executable: 'bin/rubocop'
 
+  Terraform:
+    enabled: true
+    command: 'terraform'
+    flags:
+      - 'fmt'
+      - '-list=true'
+      - '-write=false'
+
   TrailingWhitespace:
     enabled: true
