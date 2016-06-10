@@ -5,16 +5,31 @@ variable "aws_region" {
 }
 
 variable "aws_account_id" {
-  description = "AWS account id"
-  type        = "string"
+  description = "AWS account ids indexed by environment"
+  type        = "map"
+
+  default = {
+    main        = ""
+    development = ""
+  }
 }
 
 variable "aws_access_key" {
-  description = "AWS access key"
-  type        = "string"
+  description = "AWS access keys indexed by environment"
+  type        = "map"
+
+  default = {
+    main        = ""
+    development = ""
+  }
 }
 
 variable "aws_secret_key" {
-  description = "AWS secret key"
-  type        = "string"
+  description = "AWS secret keys indexed by environment"
+  type        = "map"
+
+  default = {
+    main        = ""
+    development = ""
+  }
 }

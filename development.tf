@@ -1,0 +1,38 @@
+provider "aws" {
+  alias      = "development"
+  access_key = "${var.aws_access_key.development}"
+  secret_key = "${var.aws_secret_key.development}"
+  region     = "${var.aws_region}"
+}
+
+resource "aws_iam_role" "external_administrator" {
+  provider = "aws.development"
+  name     = "ExternalAdministrator"
+  path     = "/"
+
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::${var.aws_account_id.main}:root"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_iam_policy_attachment" "development_administrators_policy_attachment" {
+  provider = "aws.development"
+  name     = "external_administrator_access"
+
+  roles = [
+    "${aws_iam_role.external_administrator.name}",
+  ]
+
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
