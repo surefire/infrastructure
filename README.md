@@ -1,12 +1,13 @@
 # Infrastructure
 
-[Terraform] configuration files for building, changing, and versioning [SureFire] infrastructure.
+[Terraform] configuration files for building, changing, and versioning [SureFire] infrastructure on [AWS].
 
 
 ## Prerequisites
 
 * [Git]
 * [Terraform]
+* [AWS]
 
 
 ## Installation
@@ -23,6 +24,7 @@ $ terraform apply
 ```
 
 
+[AWS]: http://aws.amazon.com
 [Git]: http://git-scm.com
 [SureFire]: https://www.surefirething.co.uk
 [Terraform]: https://www.terraform.io
