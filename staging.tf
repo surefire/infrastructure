@@ -1,12 +1,12 @@
 provider "aws" {
-  alias      = "development"
-  access_key = "${var.aws_access_key.development}"
-  secret_key = "${var.aws_secret_key.development}"
+  alias      = "staging"
+  access_key = "${var.aws_access_key.staging}"
+  secret_key = "${var.aws_secret_key.staging}"
   region     = "${var.aws_region}"
 }
 
-resource "aws_iam_role" "development_external_administrator" {
-  provider = "aws.development"
+resource "aws_iam_role" "staging_external_administrator" {
+  provider = "aws.staging"
   name     = "ExternalAdministrator"
   path     = "/"
 
@@ -26,12 +26,12 @@ resource "aws_iam_role" "development_external_administrator" {
 POLICY
 }
 
-resource "aws_iam_policy_attachment" "development_administrators_policy_attachment" {
-  provider = "aws.development"
+resource "aws_iam_policy_attachment" "staging_administrators_policy_attachment" {
+  provider = "aws.staging"
   name     = "external_administrator_access"
 
   roles = [
-    "${aws_iam_role.development_external_administrator.name}",
+    "${aws_iam_role.staging_external_administrator.name}",
   ]
 
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
