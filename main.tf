@@ -38,3 +38,75 @@ resource "aws_iam_policy_attachment" "main_administrators_administrator_access" 
 
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
+
+resource "aws_s3_bucket" "terraform_logs" {
+  provider = "aws.main"
+  bucket   = "surefire.operations.terraform.logs"
+  acl      = "log-delivery-write"
+
+  lifecycle_rule {
+    id      = "Rule for the Entire Bucket"
+    prefix  = ""
+    enabled = true
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+
+    transition {
+      days          = 60
+      storage_class = "GLACIER"
+    }
+
+    expiration {
+      days = 90
+    }
+  }
+
+  tags {
+    Tenant      = "SureFire"
+    Environment = "Operations"
+    Name        = "Terraform"
+  }
+}
+
+resource "aws_s3_bucket" "terraform" {
+  provider = "aws.main"
+  bucket   = "surefire.operations.terraform"
+  acl      = "private"
+
+  lifecycle_rule {
+    id      = "Rule for the Entire Bucket"
+    prefix  = ""
+    enabled = true
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+
+    transition {
+      days          = 60
+      storage_class = "GLACIER"
+    }
+
+    expiration {
+      days = 90
+    }
+  }
+
+  logging {
+    target_bucket = "${aws_s3_bucket.terraform_logs.id}"
+  }
+
+  tags {
+    Tenant      = "SureFire"
+    Environment = "Operations"
+    Name        = "Terraform"
+  }
+
+  versioning {
+    enabled = true
+  }
+}
