@@ -11,6 +11,7 @@ variable "aws_account_id" {
   default = {
     main        = ""
     development = ""
+    test        = ""
     staging     = ""
     production  = ""
   }
@@ -23,6 +24,7 @@ variable "aws_access_key" {
   default = {
     main        = ""
     development = ""
+    test        = ""
     staging     = ""
     production  = ""
   }
@@ -35,6 +37,7 @@ variable "aws_secret_key" {
   default = {
     main        = ""
     development = ""
+    test        = ""
     staging     = ""
     production  = ""
   }
