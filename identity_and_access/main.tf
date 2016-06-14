@@ -7,6 +7,7 @@ provider "aws" {
 resource "aws_iam_account_password_policy" "strict" {
   allow_users_to_change_password = true
   minimum_password_length        = 12
+  password_reuse_prevention      = 24
   require_lowercase_characters   = true
   require_uppercase_characters   = true
   require_numbers                = true
