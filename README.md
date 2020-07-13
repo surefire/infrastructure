@@ -13,7 +13,7 @@
 ## Installation
 
 ```sh
-$ git clone git@github.com:surefire/infrastructure.git
+$ git clone https://github.com/surefire/infrastructure.git
 ```
 
 
